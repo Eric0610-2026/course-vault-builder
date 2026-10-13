@@ -1,0 +1,40 @@
+/* 居中显示课程笔记中的表格名与单元格，并让表格填满正文可用宽度。 */
+
+/* Reading view and rendered previews. */
+.markdown-preview-view .el-p:has(+ .el-table),
+.markdown-rendered .el-p:has(+ .el-table) {
+  text-align: center !important;
+}
+
+.markdown-preview-view .el-table,
+.markdown-rendered .el-table,
+.markdown-preview-view .table-wrapper,
+.markdown-rendered .table-wrapper,
+.markdown-source-view .cm-table-widget .table-wrapper {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+.markdown-preview-view .el-table > table,
+.markdown-rendered .el-table > table,
+.markdown-preview-view .table-wrapper > table,
+.markdown-rendered .table-wrapper > table,
+.markdown-source-view .cm-table-widget table {
+  width: 100% !important;
+  max-width: 100%;
+  table-layout: auto !important;
+}
+
+.markdown-preview-view table th,
+.markdown-preview-view table td,
+.markdown-rendered table th,
+.markdown-rendered table td,
+.markdown-source-view .cm-table-widget table th,
+.markdown-source-view .cm-table-widget table td {
+  text-align: center !important;
+}
+
+/* Center the caption paragraph immediately before a Live Preview table. */
+.markdown-source-view.mod-cm6 .cm-line:has(+ .cm-line + .cm-embed-block.cm-table-widget) {
+  text-align: center !important;
+}

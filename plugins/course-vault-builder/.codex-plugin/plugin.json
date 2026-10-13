@@ -1,0 +1,35 @@
+{
+  "name": "course-vault-builder",
+  "version": "1.1.1",
+  "description": "课程知识库整理，集成Obsidian Markdown、Bases、Canvas、CLI和Defuddle网页提取支持。",
+  "author": {
+    "name": "Eric0610-2026"
+  },
+  "repository": "https://github.com/Eric0610-2026/course-vault-builder",
+  "keywords": [
+    "course",
+    "obsidian",
+    "pdf",
+    "课程知识库",
+    "增量整理",
+    "markdown",
+    "bases",
+    "canvas",
+    "cli",
+    "defuddle"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "课程知识库整理",
+    "shortDescription": "课程笔记、资料视图、知识地图与Obsidian操作",
+    "longDescription": "以course-vault-builder为课程整理主流程，内置obsidian-markdown、obsidian-bases、json-canvas、obsidian-cli及defuddle五个支持技能。按需处理笔记格式、资料视图、知识地图、已打开知识库操作和网页补充资料；保持原件、物理页码来源与现有课程格式。",
+    "developerName": "Eric0610-2026",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "把课程课件整理成有来源页码和知识互链的 Obsidian 知识库。",
+      "将新增课件增量整理到现有课程，只更新受影响的笔记和导航。",
+      "按需要用Bases、Canvas和Obsidian CLI组织及检查我的课程知识库。"
+    ]
+  }
+}
