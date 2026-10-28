@@ -7,6 +7,7 @@ Usage: python audit_vault.py VAULT_ROOT
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -100,7 +101,12 @@ def main() -> int:
         print(f"ERROR: vault folder not found: {root}")
         return 2
 
-    notes = sorted(p for p in root.rglob("*.md") if p.is_file())
+    # Prune before descent: excluded files must never be read or indexed.
+    files = []
+    for directory, dirs, names in os.walk(root):
+        dirs[:] = [name for name in dirs if name != "其他"]
+        files.extend(Path(directory) / name for name in names)
+    notes = sorted(p for p in files if p.suffix == ".md" and p.is_file())
     if not notes:
         print("ERROR: no Markdown notes found")
         return 2
@@ -108,7 +114,7 @@ def main() -> int:
     by_rel: dict[str, Path] = {}
     by_name: dict[str, list[Path]] = {}
     by_file_name: dict[str, list[Path]] = {}
-    for path in root.rglob("*"):
+    for path in files:
         if path.is_file():
             by_file_name.setdefault(path.name.casefold(), []).append(path)
     contents: dict[Path, str] = {}
@@ -122,7 +128,7 @@ def main() -> int:
             contents[note] = ""
             print(f"ERROR: cannot read {note.relative_to(root)}: {exc}")
 
-    errors = warnings = checked = ignored_code_links = 0
+    errors = warnings = checked = ignored_code_links = skipped_other_links = 0
     pdf_counts: dict[Path, int | None] = {}
     pdf_count_warnings: set[Path] = set()
 
@@ -165,7 +171,6 @@ def main() -> int:
             if active_text[match.start()] != text[match.start()]:
                 ignored_code_links += 1
                 continue
-            checked += 1
             raw = match.group(1).replace(r"\|", "|").split("|", 1)[0].strip()
             if not raw:
                 continue
@@ -173,6 +178,11 @@ def main() -> int:
             if "{{" in raw or "}}" in raw:
                 continue
             target_part, sep, fragment = raw.partition("#")
+            # Do not resolve/stat/read explicit targets in excluded directories.
+            if "其他" in Path(target_part.replace("\\", "/")).parts:
+                skipped_other_links += 1
+                continue
+            checked += 1
             # Obsidian permits [[#Heading]] to mean a heading in the current note.
             if not target_part and sep:
                 target, matches = note, [note]
@@ -225,6 +235,7 @@ def main() -> int:
                     errors += 1
                     print(f"ERROR: missing block anchor in {where}: [[{raw}]]")
 
+    print(f"Excluded directories named 其他 (not traversed); skipped {skipped_other_links} explicit links into them.")
     print(f"Checked {checked} Obsidian links across {len(notes)} Markdown notes.")
     print(f"Ignored {ignored_code_links} wikilink examples inside code blocks/spans (files remain in audit).")
     print(f"Errors: {errors}; warnings: {warnings}.")

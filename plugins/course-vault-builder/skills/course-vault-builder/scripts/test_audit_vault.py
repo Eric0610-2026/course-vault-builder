@@ -51,6 +51,39 @@ class CodeExampleTests(unittest.TestCase):
                 status = audit.main()
             return status, output.getvalue()
 
+    def test_other_directory_is_never_entered_or_read(self):
+        real_scandir = audit.os.scandir
+        real_read = Path.read_text
+
+        def guarded_scandir(path):
+            self.assertNotIn("其他", Path(path).parts)
+            return real_scandir(path)
+
+        def guarded_read(path, *args, **kwargs):
+            self.assertNotIn("其他", path.parts)
+            return real_read(path, *args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            excluded = root / "Course/其他/nested"
+            excluded.mkdir(parents=True)
+            (excluded / "private.md").write_text("[[Must not be checked]]", encoding="utf-8")
+            (root / "Course/main.md").write_text("[[Course/其他/private.pdf#page=999]] [[其他/nested/private#Missing]] [[valid]]", encoding="utf-8")
+            normal = root / "valid.md"
+            normal.write_text("Normal note", encoding="utf-8")
+            for broken in (False, True):
+                if broken:
+                    normal.write_text("[[Actually missing]]", encoding="utf-8")
+                output = io.StringIO()
+                with patch.object(sys, "argv", ["audit_vault.py", str(root)]), contextlib.redirect_stdout(output), patch.object(audit.os, "scandir", guarded_scandir), patch.object(Path, "read_text", guarded_read), patch.object(audit, "pdf_page_count") as count_pdf:
+                    status = audit.main()
+                self.assertEqual(status, int(broken), output.getvalue())
+                self.assertIn("skipped 2 explicit links", output.getvalue())
+                self.assertIn("across 2 Markdown notes", output.getvalue())
+                count_pdf.assert_not_called()
+                if broken:
+                    self.assertIn("[[Actually missing]]", output.getvalue())
+
     def test_skill_file_real_link_still_fails(self):
         status, output = self.run_audit({".agents/skills/example/SKILL.md": "`[[Fake]]`\n~~~\n[[Fake2]]\n~~~\n[[Actually missing]]"})
         self.assertEqual(status, 1)

@@ -11,6 +11,17 @@ Default workflow: write detailed chapter notes; cite source-derived claims to th
 
 Read [the complete workflow](references/workflow.md) before processing a course. Use its shared course layout and naming conventions; distinguish the course folder from the actual Obsidian vault root before writing links. For an existing vault, first classify the request as an incremental addition, a replacement/revision, or a separate course; follow the workflow's incremental-update procedure so unrelated notes are not rebuilt. Preserve an existing layout during ordinary additions; normalize it only when the user requests or approves that change. Use [the note template](references/note-template.md) as a semantic guide, preserving an existing course's headings, properties, and source-specific formats. For any established course, read [existing-course compatibility](references/existing-courses.md) and re-inventory the live folder before editing; treat any inventory figures as dated snapshots. Use [table formatting](references/table-formatting.md) for Markdown table captions, alignment, citations, and appearance. After notes are written, run `python <this-skill-directory>/scripts/audit_vault.py <actual-obsidian-vault-root>` using the installed plugin's own script and resolve or clearly report each finding, including pre-existing findings outside the requested course when the actual vault contains other courses. The audit is mechanical; it never substitutes for checking source content and figures.
 
+## 默认排除目录
+
+各课程根目录下的 `其他/` 文件夹及其全部子目录、文件，默认排除在处理范围之外：不遍历、不读取、不检索、不转换、不整理、不改写、不移动、不删除，也不纳入来源索引、导航维护、覆盖统计或自动审计。跨课程搜索和支持技能同样遵守；发现指向其中的链接时保留原样，不读取目标、不核查内容或锚点。用户明确指定其中某个文件或具体任务时，仅按本次指定范围处理，不扩大到整个文件夹；“整理整门课”“检查全库”等泛化请求不视为解除排除。无需创建该文件夹。
+
+## 页码引用显示文字
+
+- 当前章节与所引课件的主要内容对应（如该章的主来源）时，显示 `第N页：简要介绍`，例如 `[[免疫微生物/来源/11. B细胞介导的体液免疫应答.pdf#page=3|第3页：学习目标与掌握层次]]`。
+- 引用其他课件作补充、跨章节或跨课程联系时，显示 `课件简称第N页：简要介绍`，例如 `[[免疫微生物/来源/5-2抗体.pdf#page=19|抗体课件第19页：恒定区效应功能]]`。专题、导航等多来源页面无明确主来源时也保留课件简称；不能仅因都在同一课程目录便省略来源。
+- 简介说明对应物理页的知识点；已有准确简介优先沿用，缺少时根据对应页内容补充，不从文件名或邻近正文猜测页面内容。避免仅写“第N页”“PDF第N页”或重复整份课件标题。
+- 批量统一时只改显示文字，保留目标路径、物理页码、引用位置、正文及原有表格转义；不改嵌入参数、frontmatter或代码示例。无法确定主来源时保留课件简称，无法确定页面简介时先核查对应页。继续排除 `其他/`。
+
 ## Core requirements
 
 - Inventory every supplied source before claiming coverage. Record actual filenames and page counts; distinguish text, scan/OCR, mixed, and visual-heavy files.

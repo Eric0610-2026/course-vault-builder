@@ -1,6 +1,6 @@
 {
   "name": "course-vault-builder",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "课程知识库整理，集成Obsidian Markdown、Bases、Canvas、CLI和Defuddle网页提取支持。",
   "author": {
     "name": "Eric0610-2026"

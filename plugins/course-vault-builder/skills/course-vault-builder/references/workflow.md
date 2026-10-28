@@ -13,6 +13,12 @@ Read the user’s request and project instructions first. Determine:
 
 Ask only if a missing choice materially changes the result and cannot be inferred. The user's direct request authorizes the requested files and structure; do not expand to unrelated courses or applications. Before writing to a non-empty destination, inventory it, map existing notes to the planned structure, and preserve existing user edits. Never replace a same-named file without inspecting it and preserving its content; merge deliberately or use a clearly named new file.
 
+### 默认排除：其他
+
+各课程根目录下的 `其他/` 文件夹及其全部子目录、文件，默认排除在处理范围之外：不遍历、不读取、不检索、不转换、不整理、不改写、不移动、不删除，也不纳入来源索引、导航维护、覆盖统计或自动审计。跨课程搜索和支持技能同样遵守；发现指向其中的链接时保留原样，不读取目标、不核查内容或锚点。用户明确指定其中某个文件或具体任务时，仅按本次指定范围处理，不扩大到整个文件夹；“整理整门课”“检查全库”等泛化请求不视为解除排除。无需创建该文件夹。
+
+自动审计会跳过名为 `其他` 的目录及显式指向其中的链接，不打开其中的文件。报告应注明该范围未检查，不能把它记作缺失资料、待整理任务或已覆盖内容。用户另有具体要求时，对授权文件定向检查；不要通过全库扫描扩大范围。
+
 ### Updating an existing course vault when new courseware arrives
 
 Treat this as a targeted update, not a request to rebuild the vault. First confirm the exact existing vault and identify the newly supplied files. If the destination or relationship to an existing course cannot be determined from the user's message and workspace, ask only for that missing information.
@@ -65,7 +71,7 @@ Keep the four navigation filenames and the `NN-章节标题.md` chapter conventi
 
 Before normalizing an existing course, map old note paths to new paths, preserve a recoverable copy of affected files, and check incoming references. Update links together with renamed notes. Never rename original sources to match the chapter convention. When several courses share a vault, qualify common names such as 首页, 课程首页, 文件夹说明, and 来源索引 with their course paths to prevent ambiguous links.
 
-Determine link paths from the actual vault root, not merely the current working directory. In a shared parent vault, use targets such as `[[课程名/00-导航/课程首页|课程首页]]` and `[[课程名/来源/Lecture.pdf#page=12|Lecture PDF 第12页]]`; for a standalone course vault, omit the course prefix. Verify the exact path exists before accepting a link; a basename fallback in a mechanical audit does not prove a written path is correct. Do not describe a course subfolder as a standalone vault when its links depend on the parent vault.
+Determine link paths from the actual vault root, not merely the current working directory. In a shared parent vault, use targets such as `[[课程名/00-导航/课程首页|课程首页]]` and `[[课程名/来源/Lecture.pdf#page=12|第12页：该页知识点]]`; for a standalone course vault, omit the course prefix. Verify the exact path exists before accepting a link; a basename fallback in a mechanical audit does not prove a written path is correct. Do not describe a course subfolder as a standalone vault when its links depend on the parent vault.
 
 ## 4. Extract and verify courseware
 
@@ -95,7 +101,14 @@ For each process the course covers, write a connected sequence rather than a lis
 
 Do not expand a course slide's one-line outcome into unsupported molecular steps. If a process is only named or summarized in the source, state what is and is not shown. Any useful professional explanation beyond the courseware must be clearly labeled “补充理解” and have an appropriate source when the user asks for sources; never present it as the teacher's wording.
 
-Use source citations adjacent to the supported paragraph, bullet, or table. If one precise source location supports the whole table, cite once in its caption; if rows use different locations, cite each corresponding row or cell. Remove a citation-only `来源` column when its references are centralized in the caption, but retain `来源` when it describes subject data. Prefer a link with the exact source path and physical page, such as `[[课程名/来源/Lecture.pdf#page=12|Lecture PDF 第12页]]` in a parent vault. Follow the vault-root convention established in section 3. Use physical PDF page numbering starting at page 1, not a printed slide number. For a slide deck without PDF pages, use an exact slide number and filename. Verify source paths against the actual location, including nested subdirectories.
+Use source citations adjacent to the supported paragraph, bullet, or table. If one precise source location supports the whole table, cite once in its caption; if rows use different locations, cite each corresponding row or cell. Remove a citation-only `来源` column when its references are centralized in the caption, but retain `来源` when it describes subject data. Prefer a link with the exact source path and physical page, such as `[[课程名/来源/Lecture.pdf#page=12|第12页：该页知识点]]` in a parent vault. Follow the vault-root convention established in section 3. Use physical PDF page numbering starting at page 1, not a printed slide number. For a slide deck without PDF pages, use an exact slide number and filename. Verify source paths against the actual location, including nested subdirectories.
+
+## 页码引用显示文字
+
+- 当前章节与所引课件的主要内容对应（如该章的主来源）时，显示 `第N页：简要介绍`，例如 `[[免疫微生物/来源/11. B细胞介导的体液免疫应答.pdf#page=3|第3页：学习目标与掌握层次]]`。
+- 引用其他课件作补充、跨章节或跨课程联系时，显示 `课件简称第N页：简要介绍`，例如 `[[免疫微生物/来源/5-2抗体.pdf#page=19|抗体课件第19页：恒定区效应功能]]`。专题、导航等多来源页面无明确主来源时也保留课件简称；不能仅因都在同一课程目录便省略来源。
+- 简介说明对应物理页的知识点；已有准确简介优先沿用，缺少时根据对应页内容补充，不从文件名或邻近正文猜测页面内容。避免仅写“第N页”“PDF第N页”或重复整份课件标题。
+- 批量统一时只改显示文字，保留目标路径、物理页码、引用位置、正文及原有表格转义；不改嵌入参数、frontmatter或代码示例。无法确定主来源时保留课件简称，无法确定页面简介时先核查对应页。继续排除 `其他/`。
 
 ## 6. Connect related notes
 
