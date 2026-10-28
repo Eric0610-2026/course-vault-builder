@@ -21,7 +21,7 @@ A ChatGPT and Codex plugin for building source-grounded Obsidian course knowledg
 
 | Add a plugin marketplace | Upload a plugin ZIP |
 | --- | --- |
-| **In ChatGPT desktop:** open **Plugins → + Add → Add plugin marketplace**, then enter:<br><br>`https://github.com/Eric0610-2026/course-vault-builder`<br><br>After adding the marketplace, choose and install **Course Vault Builder**. | **Download:** [course-vault-builder-1.1.1.zip](https://github.com/Eric0610-2026/course-vault-builder/releases/download/v1.1.1/course-vault-builder-1.1.1.zip)<br><br>Then open **Plugins → + Add → Upload plugin ZIP**, select the downloaded file, and follow the prompts. |
+| **In ChatGPT desktop:** open **Plugins → + Add → Add plugin marketplace**, then enter:<br><br>`https://github.com/Eric0610-2026/course-vault-builder`<br><br>After adding the marketplace, choose and install **Course Vault Builder**. | **Download:** [course-vault-builder-1.1.2.zip](https://github.com/Eric0610-2026/course-vault-builder/releases/download/v1.1.2/course-vault-builder-1.1.2.zip)<br><br>Then open **Plugins → + Add → Upload plugin ZIP**, select the downloaded file, and follow the prompts. |
 
 > ZIP upload availability depends on your ChatGPT account and workspace permissions. If the option is missing, ask your workspace administrator. Marketplace import requires a ChatGPT desktop client that supports GitHub plugin marketplaces.
 

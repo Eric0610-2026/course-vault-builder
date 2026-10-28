@@ -21,7 +21,7 @@
 
 | 添加插件市场 | 上传插件压缩包 |
 | --- | --- |
-| **在 ChatGPT 桌面端：**打开 **Plugins → + 添加 → 添加插件市场**，粘贴仓库地址：<br><br>`https://github.com/Eric0610-2026/course-vault-builder`<br><br>添加后，在该市场中选择并安装 **课程知识库整理**。 | **先下载：**[course-vault-builder-1.1.1.zip](https://github.com/Eric0610-2026/course-vault-builder/releases/download/v1.1.1/course-vault-builder-1.1.1.zip)<br><br>然后打开 **Plugins → + 添加 → 上传插件压缩包**，选择下载的 ZIP，按界面提示完成导入。 |
+| **在 ChatGPT 桌面端：**打开 **Plugins → + 添加 → 添加插件市场**，粘贴仓库地址：<br><br>`https://github.com/Eric0610-2026/course-vault-builder`<br><br>添加后，在该市场中选择并安装 **课程知识库整理**。 | **先下载：**[course-vault-builder-1.1.2.zip](https://github.com/Eric0610-2026/course-vault-builder/releases/download/v1.1.2/course-vault-builder-1.1.2.zip)<br><br>然后打开 **Plugins → + 添加 → 上传插件压缩包**，选择下载的 ZIP，按界面提示完成导入。 |
 
 > ZIP 上传入口是否可用取决于 ChatGPT 账户和工作区权限；若看不到入口，请联系工作区管理员。插件市场导入需要支持 GitHub 插件市场的 ChatGPT 桌面端。
 
